@@ -5,7 +5,7 @@ const fs = require('fs')
 
 async function sendTemplateMessage() {
     const response = await axios({
-        url: 'https://graph.facebook.com/v20.0/phone_number_id/messages',
+        url: 'https://graph.facebook.com/v21.0/560695163788557/messages',
         method: 'post',
         headers: {
             'Authorization': `Bearer ${process.env.WHATSAPP_TOKEN}`,
@@ -13,13 +13,13 @@ async function sendTemplateMessage() {
         },
         data: JSON.stringify({
             messaging_product: 'whatsapp',
-            to: 'phone_number',
+            to: '237682189383',
             type: 'template',
             template:{
-                name: 'discount',
+                name: 'confirmation_de_commande_1',
                 language: {
-                    code: 'en_US'
-                },
+                    code: 'fr'
+                }/*,
                 components: [
                     {
                         type: 'header',
@@ -39,15 +39,16 @@ async function sendTemplateMessage() {
                             }
                         ]
                     }
-                ]
+                ]*/
             }
         })
     })
 
     console.log(response.data)
 }
+sendTemplateMessage()
 
-async function sendTextMessage() {
+/*async function sendTextMessage() {
     const response = await axios({
         url: 'https://graph.facebook.com/v20.0/phone_number_id/messages',
         method: 'post',
@@ -116,3 +117,5 @@ async function uploadImage() {
 // sendMediaMessage()
 
 // uploadImage()
+
+*/
