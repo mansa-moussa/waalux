@@ -1,6 +1,17 @@
 from flask import Flask, request, jsonify
 import requests
 
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Bienvenue sur mon API WhatsApp !"
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
+
+
 # Configuration de l'API WhatsApp Cloud
 ACCESS_TOKEN = "EAASbZB7O9ZBX0BO3WY6IdZBjXDkMXXRGSrvHbM0BJoGiZBW2uvClXuZBpWkZBWrvHOV2BubMvyw2oakbBye92y72YkDuwPt4uUNk3sYeZB7RzU7fjZAe7N7j9p1gdBJe09h8xFOwvObyP3cUuYxzlTZAWkECicLz5TW8iBeAbmxo0ByRZCV0JPOYoZCh1TORIQLTxKOUgZDZD"
 PHONE_NUMBER_ID = "560695163788557"
