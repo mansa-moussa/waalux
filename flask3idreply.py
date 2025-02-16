@@ -1,23 +1,16 @@
 from flask import Flask, request, jsonify
 import requests
 
-
 app = Flask(__name__)
 
 @app.route("/")
 def home():
     return "Bienvenue sur mon API WhatsApp !"
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
-
-
 # Configuration de l'API WhatsApp Cloud
 ACCESS_TOKEN = "EAASbZB7O9ZBX0BO3WY6IdZBjXDkMXXRGSrvHbM0BJoGiZBW2uvClXuZBpWkZBWrvHOV2BubMvyw2oakbBye92y72YkDuwPt4uUNk3sYeZB7RzU7fjZAe7N7j9p1gdBJe09h8xFOwvObyP3cUuYxzlTZAWkECicLz5TW8iBeAbmxo0ByRZCV0JPOYoZCh1TORIQLTxKOUgZDZD"
 PHONE_NUMBER_ID = "560695163788557"
 VERIFY_TOKEN = "mon_webhook_token"
-
-app = Flask(__name__)
 
 # 🔹 Fonction pour envoyer un message texte simple
 def send_text(recipient_id, message):
@@ -50,13 +43,11 @@ def send_template(recipient_id, template_name):
         "Content-Type": "application/json"
     }
 
-    # 🔹 Images associées aux templates
     images = {
         "fichemeche1": "https://i.postimg.cc/QdngZWwy/a-photo-of-a-warehouse-with-several-open-Xi-KY6-Ip-Qyesa-O-qtx9-RSw-Upm-S6-PKb-Rmyhgf-Ad-Ltt-ETg.jpg",
         "ficheperruque1": "https://res.cloudinary.com/dipwzjil0/image/upload/v1738693730/pzjl09tj9awrcrrbplrz.jpg"
     }
 
-    # 🔹 Vérifie si le template nécessite une image
     if template_name in images:
         payload = {
             "messaging_product": "whatsapp",
@@ -148,7 +139,7 @@ def receive_message():
                             elif payload == "Finaliser ma commande":
                                 send_template(sender_id, "validation_assist")
                             elif payload == "Retour":
-                                send_template(sender_id, "faistonchoix")  # Revient à l'étape précédente
+                                send_template(sender_id, "faistonchoix")
                             elif payload == "Assistance (Afrique)":
                                 send_template(sender_id, "contact_assist1")
                             else:
@@ -156,6 +147,8 @@ def receive_message():
 
     return jsonify({"status": "success"}), 200
 
-# 🔹 Lancer l'application Flask
+# 🔹 Lancer l'application Flask avec le bon port pour Render
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    import os
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port, debug=True)
